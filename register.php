@@ -9,7 +9,7 @@ if (input::exists()) {
     'name' => [
         'required' => true,
         'min' => 2,
-        'max' => 50
+        'max' => 20
     ],
     'username' => [
         'required' => true,
@@ -19,7 +19,7 @@ if (input::exists()) {
     ],
     'password' => [
         'required' => true,
-        'min' => 6
+        'min' => 3
     ],
     'password_again' => [
         'required' => true,
@@ -29,7 +29,8 @@ if (input::exists()) {
     ]);
     
     if($validate->passed()) {
-        echo 'udalo sie';
+        Session::flash('ok','udalo sie zajestrowac');
+        header('location: index.php');
     } else {
         foreach($validate->errors() as $error) {
             echo $error . "<br>";   
