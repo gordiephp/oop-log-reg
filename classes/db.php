@@ -27,7 +27,7 @@ class DB {
     
     //$user = DB::getInstance()->query("SELECT * FROM users WHERE username = ? OR username = ?" , ['asd','zxc']);
     //var_dump( $user->error());
-    public function query($sql, $params = []) {
+    public function query($sql, $params = []) { //pobieramy zapytanie $sql i parametry where
         $this->_error = false;
         $this->_query = $this->_pdo->prepare($sql);
         $x = 1;
