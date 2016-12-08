@@ -7,7 +7,10 @@ $GLOBALS['config'] = [
         'login'    => 'xxx',
         'pass'     => 'xxx',
         'host'     => 'localhost'
-        ]
+        ],
+    'session' = [
+        'token_name' => 'token'
+    ]
     ];
 
 spl_autoload_register(function($class) {
