@@ -8,7 +8,7 @@ $GLOBALS['config'] = [
         'pass'     => 'xxx',
         'host'     => 'localhost'
         ],
-    'session' = [
+    'session' => [
         'token_name' => 'token'
     ]
     ];
