@@ -2,7 +2,11 @@
 require_once 'app/start.php';
 
 if (input::exists()) {
-       
+    
+    if(!Token::check(Input::get('token'))) {
+        die('blad tokena');
+    }
+   
     $validate = new validate(); 
     
     $validate->check($_POST, [
@@ -29,8 +33,27 @@ if (input::exists()) {
     ]);
     
     if($validate->passed()) {
-        Session::flash('ok','udalo sie zajestrowac');
-        header('location: index.php');
+        $user = new User();
+        
+        $salt = Hash::salt(32);
+        
+        try {
+            $user->create([
+                'username' => Input::get('username'),
+                'password' => Hash::make(Input::get('password'), $salt),
+                'salt' => $salt,
+                'name' => Input::get('name'),
+                'joined' => date('Y-m-d H-i-s'),
+                'groupid' => 1
+                ]); 
+        }
+        catch(Exception $e) {
+            die($e->getMessage());
+        }
+        
+        
+        Session::flash('ok', 'udalo sie zarejestrowac');
+        Redirect::to('index.php');
     } else {
         foreach($validate->errors() as $error) {
             echo $error . "<br>";   
@@ -40,9 +63,7 @@ if (input::exists()) {
 }
 
 ?>
-
-
-                            <!--szkic formularza -->
+                            <!--szkic formularza-->
 <html>
 <body>
 <container>
@@ -66,7 +87,7 @@ if (input::exists()) {
         <div>
         <input type="submit" value="rejestruj">
         </div>
-        <input type="hidden" name="token" value="">
+        <input type="hidden" name="token" value="<?php echo Token::generate();?>">
     </form>
 </container>
 </body>

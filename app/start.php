@@ -9,6 +9,7 @@ $GLOBALS['config'] = [
         'host'     => 'localhost'
         ],
     'session' => [
+        'session_name' => 'user',
         'token_name' => 'token'
     ]
     ];
